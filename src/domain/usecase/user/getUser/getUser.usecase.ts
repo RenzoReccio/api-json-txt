@@ -4,7 +4,7 @@ import { BaseUseCase } from "../../base/base.usecase";
 import { GetUserDto } from "./getUser.dto";
 import { GetUserResponse } from "./getUser.response";
 
-export class CreateUserUseCase implements BaseUseCase<GetUserDto, GetUserResponse[]>{
+export class GetUserUseCase implements BaseUseCase<GetUserDto, GetUserResponse[]>{
 
     constructor(
         @Inject('UserRepository') private _userRepository: UserRepository,
