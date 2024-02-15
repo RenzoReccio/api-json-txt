@@ -24,7 +24,9 @@ Run project
 ```bash
   npm run start:dev
 ```
-    
+
+Open browser in this URL for swagger: http://localhost:3000/api
+ 
 ## API Reference
 
 #### Get user
