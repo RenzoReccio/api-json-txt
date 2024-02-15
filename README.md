@@ -13,11 +13,11 @@ Clone project with
   git clone https://github.com/RenzoReccio/api-json-txt.git
 ```
 
-Install project with npm
+Install project dependencies with npm
 
 ```bash
   cd api-json-txt
-  npm install api-json-txt
+  npm i
 ```
 
 Run project
