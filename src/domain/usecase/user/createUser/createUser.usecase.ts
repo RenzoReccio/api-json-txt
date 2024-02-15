@@ -27,8 +27,6 @@ export class CreateUserUseCase implements BaseUseCase<CreateUserDto, string>{
         dto.email = dto.email.trim()
         dto.address = dto.address?.trim()
         
-        console.log(dto)
-
         if(!isString(dto.name)) throw new Error("Name is not a string.")
         if(!minLength(dto.name, 6)) throw new Error("Name min length is 6.")
         if(!isAlpha(dto.name)) throw new Error("Name contains special characters.")
