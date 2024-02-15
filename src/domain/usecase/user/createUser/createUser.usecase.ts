@@ -3,7 +3,7 @@ import { UserRepository } from "src/domain/repository/user.repository";
 import { BaseUseCase } from "../../base/base.usecase";
 import { CreateUserDto } from "./createUser.dto";
 import { UserModel } from "src/domain/model/user.model";
-import { isAlpha, isEmail, minLength } from "class-validator";
+import { isAlpha, isEmail, isString, minLength } from "class-validator";
 
 export class CreateUserUseCase implements BaseUseCase<CreateUserDto, string>{
 
@@ -19,18 +19,24 @@ export class CreateUserUseCase implements BaseUseCase<CreateUserDto, string>{
     }
 
     private async validation(dto?: CreateUserDto): Promise<void>{
-        if(!dto.name || dto.name.trim()) throw new Error("Name is obligatory.")
-        if(!dto.email || dto.email.trim()) throw new Error("Email is obligatory.")
+        if(!dto.name || dto.name.trim().length == 0) throw new Error("Name is obligatory.")
+        if(!dto.email || dto.email.trim().length == 0) throw new Error("Email is obligatory.")
 
         //trim strings
         dto.name = dto.name.trim()
-        dto.email = dto.name.trim()
+        dto.email = dto.email.trim()
         dto.address = dto.address?.trim()
         
-        if(minLength(dto.name, 6)) throw new Error("Name min length is 6.")
-        if(isAlpha(dto.name)) throw new Error("Name contains special characters.")
+        console.log(dto)
 
-        if(isEmail(dto.email)) throw new Error("Email is not in the correct format.")
+        if(!isString(dto.name)) throw new Error("Name is not a string.")
+        if(!minLength(dto.name, 6)) throw new Error("Name min length is 6.")
+        if(!isAlpha(dto.name)) throw new Error("Name contains special characters.")
+
+        if(!isString(dto.email)) throw new Error("Email is not a string.")
+        if(!isEmail(dto.email)) throw new Error("Email is not in the correct format.")
+
+        if(!isString(dto.address)) throw new Error("Email is not a string.")
 
         let validateUser = await this._userRepository.getByEmail(dto.email);
         if(validateUser) throw new Error(`User with email: ${dto.email} already exists.`)
