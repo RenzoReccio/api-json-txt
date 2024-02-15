@@ -35,7 +35,7 @@ export class CreateUserUseCase implements BaseUseCase<CreateUserDto, string>{
         if(!isString(dto.email)) throw new ValidationError("Email is not a string.")
         if(!isEmail(dto.email)) throw new ValidationError("Email is not in the correct format.")
 
-        if(!isString(dto.address)) throw new ValidationError("Address is not a string.")
+        if(dto.address && !isString(dto.address)) throw new ValidationError("Address is not a string.")
 
         let validateUser = await this._userRepository.getByEmail(dto.email);
         if(validateUser) throw new ValidationError(`User with email: ${dto.email} already exists.`)
